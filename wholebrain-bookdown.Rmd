@@ -1,0 +1,397 @@
+--- 
+title: "WholeBrain tutorials"
+author: "Daniel Fürth"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: tractatus/wholebrain-bookdown
+description: "Some Spatial Transcriptomics and WholeBrain examples."
+---
+
+# Preface
+
+TBA
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction {#intro}
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+# Segment
+
+Segmentation.
+
+<!--chapter:end:02-segment.Rmd-->
+
+# Registration
+
+TBA.
+
+<!--chapter:end:03-registration.Rmd-->
+
+# Make web map
+
+## Static web maps.
+
+<!--chapter:end:04-makewebmap.Rmd-->
+
+# 3D reconstruction
+
+Once you have processed more than one section you can collapse then into a single tidy data frame that can be used for 3D reconstruction..
+
+<!--chapter:end:05-3dreconstruction.Rmd-->
+
+# Statistical analysis
+
+## Handling data.
+
+## Plotting.
+
+## Modeling.
+
+<!--chapter:end:06-statisticalanalysis.Rmd-->
+
+# Colocalization
+
+TBA.
+
+<!--chapter:end:08-colocalization.Rmd-->
+
+# smFISH
+
+TBA.
+
+<!--chapter:end:09-smFISH.Rmd-->
+
+# Spatial transcriptomics.
+
+## Load in the preprocessed WholeBrain/ST-data.
+
+First lets load the segmentation of individual spots (with polygon contours) as well as their centroid (seg.spots list object) together with segmentation of individual cell nuclei (cells) and the registration object to the reference atlas (regi).
+```{r}
+#load registration and segmentation output into R workingspace
+load('./data/spatial_transcriptomics/170605/D2_S4_seg_and_reg.RData')
+```
+With this you will have the following list objects in your working space:
+
+* `seg.spots` output from `segmentation(image, get.contour=TRUE)` on the Cy3 spot image.
+* `cells` output from `segmentation(image)` on the H&E image (individual nuclei and tissue contour).
+* `regi` output from `registration(image, coordinate=X)`
+
+Check that this is true by typing `ls()` in the R console to check objects in your working space.
+```{r} 
+ls()
+```
+
+You can try to plot all individual cell nuclei and all segmented spots by the following commands:
+```{r} 
+#helper function to plot spots as polygons
+polygon.spot<-function(contour.ID, alpha=0.2){
+  x<-seg.spots$soma$contour.x[which(seg.spots$soma$contour.ID==contour.ID)]
+  y<-seg.spots$soma$contour.y[which(seg.spots$soma$contour.ID==contour.ID)]
+  polygon(x,y, border='darkred', col=rgb(1,0,0, alpha))
+}
+#helper function to plot atlas regions in the tissue
+polygon.atlas<-function(contour.ID){
+  #scale fatcor to upsample to original image
+  scale.factor<-mean(c(regi$transformationgrid$height,regi$transformationgrid$width)/dim(regi$transformationgrid$mx))
+  for(i in 1:2){
+    region<-regi$atlas$outlines[[contour.ID]][c(2*1-1,2*1)+4]
+    names(region)<-c('x', 'y')
+    polygon(region$x*scale.factor, region$y*scale.factor, border='purple')
+  }
+}
+```
+Then lets plot this with:
+```{r}
+#do some plotting
+par(mfrow=c(1,2), mar=c(0,0,0,0))
+#plot cell nuclei as black small spots
+plot(cells$soma$x, cells$soma$y, cex=0.08, pch=16, ylim=c(max(cells$soma$y),0), asp=1, ylab='', xlab='', axes=FALSE)
+#plot region outlines
+invisible(lapply(1:regi$atlas$numRegions, polygon.atlas))
+#plot spots as polygons
+invisible(lapply(unique(seg.spots$soma$contour.ID), polygon.spot))
+#make a ROI for closeup
+roi<-list(x=median(cells$soma$x)+c(-1000,1000), y=median(cells$soma$y)+c(-1000,1000))
+polygon(c(roi$x, rev(roi$x)), rep(roi$y, each=2), border='green3', lwd=2)
+#plot closeup
+#plot cell nuclei as black small spots
+plot(cells$soma$x, cells$soma$y, cex=1, pch=16, ylim=roi$y,  xlim=roi$x, asp=1, ylab='', xlab='', axes=FALSE)
+polygon(c(roi$x, rev(roi$x)), rep(roi$y, each=2), border='green3', lwd=2)
+box()
+#plot spots as polygons
+invisible(lapply(unique(seg.spots$soma$contour.ID), polygon.spot))
+```
+
+Then load in the integrated ST-data and WholeBrain dataset as a list object called dataset with the following members:
+
+* `dataset$spots` data.frame object from `get.cells.ids(regi, seg.spots, forward.warps=TRUE)`
+* `dataset$genes` data.frame object with transcript count where each row corresponds to the same row (spot) in `dataset$spots` and each column is a gene.
+* `dataset$nuclei` data.frame object from `get.cells.ids(regi, cells, forward.warps=TRUE)` contains all nuclei as rows and each nuclei is assigned to a spot.id (`datset$nuclei$spot.id`) corresponding to spot.id in `dataset$spots$spot.id`
+
+```{r}
+#load combined ST-data and WholeBrain output as a list object called dataset with members 
+# dataset$spots (row= individual spots, col= region acronyms etc), dataset$genes (row = spots, col=genes)
+# dataset$nuclei individually segmented nuclei with parent spot indicted by spot.id 
+# which have corresponding vector in dataset$spots$spot.id.
+load('./data/spatial_transcriptomics/170605/D2_S4_p1_0_mapped.RData')
+```
+Your working space should now look like:
+```{r} 
+ls()
+```
+
+We can for example see that there is a good correlation between number of nuclei inside a spot and number of detected genes:
+```{r fig.width=4.939024*0.85, fig.height= 5.231707*0.85}
+genecount<-apply(dataset$genes, 1, function(x)sum(x>0))
+gene.expression<-apply(dataset$genes, 1, function(x)mean(x[x>0]))
+
+#Place Pearson correlation coefficient in quadrant.
+get.quadrant<-function(x,y, lim=c(0.75,0.85),col='black'){
+  text(max(x, na.rm=TRUE)*lim[1],
+  max(y, na.rm=TRUE)*lim[2],
+  paste('R = ', round(cor(na.omit(cbind(x, y)))[1,2],2)),
+  col=col
+  )
+}
+
+#plot
+par(mfrow=c(1,2))
+par(yaxs='i', xaxs='r', mar=c(2,4,1,2), mfrow=c(2,1))
+plot(dataset$spots$nuclei, genecount, pch=16, cex=0.8, xlab='nuclei in spot', ylab='Genes detected', xlim=c(0,50), ylim=c(0,10000), axes=FALSE)
+get.quadrant(dataset$spots$nuclei, genecount, lim=c(0.99,0.25))
+points(data.frame(dataset$spots$nuclei, genecount)[which(dataset$spots$spot.id%in%c(693,706)),], pch=21, bg=c('#998ec3','#f1a340'), col=c('#542788', '#b35806'), cex=1.2, lwd=1.5)
+axis(1, at=c(0,25,50)) 
+axis(2, at=c(0,5000,10000), las=1)
+par(mar=c(4,4,1,2))
+plot(dataset$spots$nuclei, gene.expression, pch=16, cex=0.8, xlab='nuclei in spot', ylab='Avg. molecules \n per gene', xlim=c(0,50), ylim=c(1,4), axes=FALSE)
+get.quadrant(dataset$spots$nuclei, gene.expression, lim=c(0.95,0.35))
+points(data.frame(dataset$spots$nuclei, gene.expression)[which(dataset$spots$spot.id%in%c(693,706)),], pch=21, bg=c('#998ec3','#f1a340'), col=c('#542788', '#b35806'), cex=1.2, lwd=1.5)
+axis(1, at=c(0,25,50)) 
+axis(2, at=c(1,2.5,4), las=1)
+
+```
+
+Let us now load in a custom plotting function for plotting gene expression for individual genes using `base R`.
+
+## Plotting gene expressions
+
+The function to display gene expression with base R is the following load it into working space by running this code chunk:
+```{r include=FALSE, cache=FALSE}
+#viridis for color scale
+invisible(library(wholebrain))
+```
+```{r} 
+plot.atlas<-function(regi, main='', xlim=c(0,4), ylim=c(-7, -1)){
+  scale.factor<-mean(c(regi$transformationgrid$height,regi$transformationgrid$width)/dim(regi$transformationgrid$mx))
+  regi<-get.forward.warpRCPP(regi)
+  region<-regi$atlas$outlines[[1]][c(2*1-1,2*1)]
+      names(region)<-c('x', 'y')
+      index<-round(cbind(region$y, region$x))*scale.factor
+      #region$x<-regi$transformationgrid$mxF[index]
+      #region$y<-regi$transformationgrid$myF[index]
+      region<-list(x=index[,2], y=index[,1])
+      region<-stereotactic.coordinates(region$x, region$y, regi, inverse=FALSE)
+      plot(region, asp=1, type='n', axes=FALSE, main = main, ylab='Dorso-ventral (mm)', xlab='Medio-lateral (mm)')
+  
+  for(j in 1:regi$atlas$numRegions){ 
+    for(i in 1:2){
+      region<-regi$atlas$outlines[[j]][c(2*1-1,2*1)]
+      names(region)<-c('x', 'y')
+      index<-round(cbind(region$y, region$x))*scale.factor
+      #region$x<-regi$transformationgrid$mxF[index]
+      #region$y<-regi$transformationgrid$myF[index]
+      region<-list(x=index[,2], y=index[,1])
+      region<-stereotactic.coordinates(region$x, region$y, regi, inverse=FALSE)
+      polygon(region$x, region$y, border='black', col=gray(0.95))
+    }
+  }
+  xlim<-sort(xlim, decreasing=TRUE)
+  ylim<-sort(ylim, decreasing=TRUE)
+  
+  axis(2, at = seq(ylim[1], ylim[2],by=-0.1), labels = FALSE, las = 1, col = "orange", tck = -0.0125)
+  axis(2, at = seq(ylim[1], ylim[2], by=-0.5), labels = FALSE, las = 1, col = "darkblue", tck = -0.025)
+  axis(2, at = ylim[1]:ylim[2],  las = 1)                
+  
+  axis(1, at = seq(xlim[1], -xlim[2],by=-0.1), labels = FALSE, las = 1, col = "orange", tck = -0.0125)
+  axis(1, at = seq(xlim[1], -xlim[2], by=-0.5), labels = FALSE, las = 1, col = "darkblue", tck = -0.025)
+  axis(1, at = xlim[1]:xlim[2],  las = 1)                  
+   
+}
+
+plot.gene<-function(dataset, regi, gene, colorfunc = heat.colors, atlas=TRUE){
+  if(atlas)
+    plot.atlas(regi, main=gene)
+
+  gene<-dataset$genes[,gene]
+  colors <- mapply(function(col, i) adjustcolor(col, alpha.f = (gene/max(gene))[i]), 
+                 colorfunc(length(unique(gene)))[gene+1], seq_along(gene))   
+
+  inside.tissue<-!is.na(dataset$spots$acronym)
+  points(dataset$spots$ML[inside.tissue], dataset$spots$DV[inside.tissue], pch=16, col=colors[inside.tissue])
+} 
+
+legend.gene<-function(dataset, gene, colorfunc = heat.colors){
+  par(xaxs='i')
+  plot(c(0,1),c(0,1),type = 'n', axes = F,xlab = '', ylab = '', main = gene, xlim=c(0,1))
+  gene<-dataset$genes[,gene]
+  color<-sapply(seq_along(unique(gene)), function(x){adjustcolor(colorfunc(length(unique(gene)))[x], alpha.f = (sort(unique(gene))/max(gene))[x] )} )
+  legend_image <- as.raster(matrix(rev(color), ncol=1))
+  axis(4, at = seq(0,1,l=5), labels = seq(0,max(gene),l=5), las=1)
+  rasterImage(legend_image, 0, 0, 1,1)
+  polygon(c(0,1,1,0), c(0, 0, 1,1))
+  mtext('Count',4,3.5)
+  histogram<-hist(gene, breaks=seq(0,max(gene)), plot=FALSE)
+  y<-histogram$counts
+  y<-log2(y+1)
+  y<-0.5*(y/max(y))
+  x<-(histogram$mids-0.5)/max(histogram$mids-0.5)
+  y<-c(0, -rep(y, each=2)[-length(rep(y, each=2))])
+  x<-rep(x, each=2)
+  par(xpd=T)
+  polygon(c(y, rep(0, length(y))), c(x, rev(x)), col='purple')
+  par(xpd=F)
+}
+```
+```{r}
+#viridis for color scale
+library(viridis)
+```
+Now we can plot any gene like this:
+```{r fig.height = 3.865854*1.5, fig.width =4.951219*1.5}
+layout(matrix(1:2,ncol=2), width = c(4,3),height = c(1,1))
+par(mar=c(4,4,4,0))
+plot.gene(dataset, regi, gene='Penk', colorfunc=viridis)
+par(mar=c(4,2,4,10))
+legend.gene(dataset, gene='Penk', colorfunc=viridis)
+```
+
+Now lets declare a plotting function for plotting all genes we throw at it in a vector:
+
+```{r}
+plot.these.genes<-function(genelist){
+non.detected<-character()
+striatum<-character()
+somatosensory<-character()
+for(i in genelist){
+
+if(sum(i%in%names(dataset$genes)) ){
+  layout(matrix(1:2,ncol=2), width = c(2,1),height = c(1,1))
+  par(mar=c(4,4,4,0))
+  plot.gene(dataset, regi, gene=i, colorfunc=viridis)
+  par(mar=c(4,2,4,5))
+  legend.gene(dataset, gene=i, colorfunc=viridis)
+  
+  cat(i)
+  region.index<-substr(dataset$spots$acronym, 1,2)
+  CP<-dataset$genes[which(region.index=='CP'), i]
+  SS<-dataset$genes[which(region.index=='SS'), i]
+  ttest<-t.test(CP, SS)
+  if(!is.nan(ttest$p.value)){
+    if(ttest$p.value<0.05){
+      cat('        █▬█ █ ▀█▀')
+      if(ttest$statistic<0){
+        cat(' MARKER FOR SOMATOSENSORY!')
+        somatosensory<-append(somatosensory, i)
+      }else{
+        cat(' MARKER FOR CAUDATE PUTAMEN!')
+        striatum<-append(striatum, i)
+      }
+    }
+  }
+ 
+  cat(paste('\n -----\n Average number of', i,'transcripts detected:\n CPu : M =', round(mean(CP), 2), '( SD =', round(sd(CP), 2),')', 'molecules \n SS : M =', round(mean(SS), 2)), '( SD =', round(sd(SS), 2),') molecules\n -----\n')
+  print(ttest)
+}else{
+  non.detected<-append(non.detected, i)
+}
+}
+cat(paste0('\n Nondetected genes: \n', paste0(non.detected, collapse=', ')))
+return(list(non.detected = non.detected, striatum = striatum, somatosensory = somatosensory))
+}
+```
+
+## Confirmatory analysis
+
+Running `plot.these.genes()` with a character vector of genes that we are interested will plot all of them:
+```{r fig.height = 3.865854*1.1, fig.width =4.951219*1.1  }
+#Genes that are differentially expressed between striatal and somatosensory cortical astrocytes:
+astrocytes<-c("Crym", "6330403K07Rik", "Prss56", "Fam134b", "Sntb1", "Rcn1", "Nme6", "Bex2", "Hey2", "Sepn1", "Ints12", "Abtb2", "Olig2","Vps18","Ppif", "Gpd1", "Olig1", "Slc25a18")
+conf.analysis<-plot.these.genes(astrocytes)
+```
+
+### Confirmatory conclusion:
+
+* Somatosensory:
+ * `{r} cat(paste(conf.analysis$somatosensory , collapse=' ,'))`
+* Striatal:
+ * `{r} cat(paste(conf.analysis$striatum , collapse=' ,'))`
+* Non detected:
+ * `{r} cat(paste(conf.analysis$non.detected , collapse=' ,'))`
+ 
+### Somatosensory:
+
+```{r} 
+par(mfrow=c(length(conf.analysis$somatosensory)%/%4+1,4%/%4+1), mar=c(4,4,4,1))
+invisible(sapply(conf.analysis$somatosensory, function(x)plot.gene(dataset, regi, gene=x, colorfunc=viridis)))
+```
+
+### Striatal:
+
+```{r} 
+par(mfrow=c(length(conf.analysis$striatum)%/%4+1,4), mar=c(4,4,4,1))
+invisible(sapply(conf.analysis$striatum, function(x)plot.gene(dataset, regi, gene=x, colorfunc=viridis)))
+```
+
+## Exploratory analysis
+ 
+Now lets run for some other genes:
+```{r fig.height = 3.865854*1.1, fig.width =4.951219*1.1  }
+#Genes that are differentially expressed between striatal and somatosensory cortical astrocytes:
+genes.of.interest<-c("Adm", "Gdf11", "Mstn", "Bmp3", "Gdf10", "Gdf2", "Bmp10", "Gdf6", "Gdf5", "Gdf7", "Bmp5", "Bmp6", "Bmp7", "Bmp8a", "Bmp8b", "Bmp2", "Bmp4", "Cntf", "Lif", "Il6", "Csf1", "Csf3", "Csf2", "Egf", "Efna1", "Efna2", "Efna3", "Efna4", "Efna5", "Efnb1", "Efnb2", "Efnb3", "Epo", "Fgf1", "Fgf2", "Fgf3", "Fgf4", "Fgf5", "Fgf6", "Fgf7", "Fgf8", "Fgf9", "Fgf10", "Fgf11", "Fgf12", "Fgf13", "Fgf14", "Fgf16", "Fgf17", "Fgf18", "Fgf19", "Fgf20", "Fgf21", "Fgf22", "Fgf23", "Gdnf", "Nrtn", "Pspn", "Artn", "Gdf9", "Hgf", "Hdgf", "Ins", "Igf1", "Igf2", "Il1a", "Il1b", "Il2", "Il3", "Il4", "Il5", "Il6", "Il7", "Nrg1", "Nrg2", "Nrg3", "Nrg4", "Bdnf", "Ngf", "Ntf3", "Ntf4", "Pgf", "Pdgfa", "Pdgfb", "Rnls", "Tpo", "Tgfa", "Tgfb1", "Tgfb2", "Tgfb3", "Tnf", "Vegfa", "Vegfb", "Vegfc", "Vegfd", "Wnt1", "Wnt2", "Wnt2b", "Wnt13", "Wnt3a", "Wnt4", "Wnt5a", "Wnt5b", "Wnt6", "Wnt7a", "Wnt7b", "Wnt8a", "Wnt8b", "Wnt9a", "Wnt9b", "Wnt10a", "Wnt10b", "Wnt11", "Wnt16", "Penk")
+
+expl.analysis<-plot.these.genes(genes.of.interest)
+```
+
+### Exploratory conclusion:
+
+* Somatosensory:
+ * `{r} cat(paste(expl.analysis$somatosensory , collapse=' ,'))`
+* Striatal:
+ * `{r} cat(paste(expl.analysis$striatum , collapse=' ,'))`
+* Non detected:
+ * `{r} cat(paste(expl.analysis$non.detected , collapse=' ,'))`
+ 
+### Somatosensory:
+
+```{r} 
+par(mfrow=c(length(expl.analysis$somatosensory)%/%4+1,4%/%4+1), mar=c(4,4,4,1))
+invisible(sapply(expl.analysis$somatosensory, function(x)plot.gene(dataset, regi, gene=x, colorfunc=viridis)))
+```
+
+### Striatal:
+
+```{r} 
+par(mfrow=c(length(expl.analysis$striatum)%/%4+1,4), mar=c(4,4,4,1))
+invisible(sapply(expl.analysis$striatum, function(x)plot.gene(dataset, regi, gene=x, colorfunc=viridis)))
+```
+
+<!--chapter:end:10-spatialtranscriptomics.Rmd-->
+
+# MAPseq
+
+TBA.
+
+<!--chapter:end:11-MAPseq.Rmd-->
+
+`r if (knitr:::is_html_output()) '# References {-}'`
+
+<!--chapter:end:12-references.Rmd-->
+

@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>WholeBrain tutorials</title>
+  <meta name="description" content="Some Spatial Transcriptomics and WholeBrain examples.">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="WholeBrain tutorials" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Some Spatial Transcriptomics and WholeBrain examples." />
+  <meta name="github-repo" content="tractatus/wholebrain-bookdown" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="WholeBrain tutorials" />
+  
+  <meta name="twitter:description" content="Some Spatial Transcriptomics and WholeBrain examples." />
+  
+
+<meta name="author" content="Daniel Fürth">
+
+
+<meta name="date" content="2017-07-22">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="smfish.html">
+<link rel="next" href="mapseq.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WholeBrain tutorials</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="segment.html"><a href="segment.html"><i class="fa fa-check"></i><b>3</b> Segment</a></li>
+<li class="chapter" data-level="4" data-path="registration.html"><a href="registration.html"><i class="fa fa-check"></i><b>4</b> Registration</a></li>
+<li class="chapter" data-level="5" data-path="make-web-map.html"><a href="make-web-map.html"><i class="fa fa-check"></i><b>5</b> Make web map</a><ul>
+<li class="chapter" data-level="5.1" data-path="make-web-map.html"><a href="make-web-map.html#static-web-maps."><i class="fa fa-check"></i><b>5.1</b> Static web maps.</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="d-reconstruction.html"><a href="d-reconstruction.html"><i class="fa fa-check"></i><b>6</b> 3D reconstruction</a></li>
+<li class="chapter" data-level="7" data-path="statistical-analysis.html"><a href="statistical-analysis.html"><i class="fa fa-check"></i><b>7</b> Statistical analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="statistical-analysis.html"><a href="statistical-analysis.html#handling-data."><i class="fa fa-check"></i><b>7.1</b> Handling data.</a></li>
+<li class="chapter" data-level="7.2" data-path="statistical-analysis.html"><a href="statistical-analysis.html#plotting."><i class="fa fa-check"></i><b>7.2</b> Plotting.</a></li>
+<li class="chapter" data-level="7.3" data-path="statistical-analysis.html"><a href="statistical-analysis.html#modeling."><i class="fa fa-check"></i><b>7.3</b> Modeling.</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="colocalization.html"><a href="colocalization.html"><i class="fa fa-check"></i><b>8</b> Colocalization</a></li>
+<li class="chapter" data-level="9" data-path="smfish.html"><a href="smfish.html"><i class="fa fa-check"></i><b>9</b> smFISH</a></li>
+<li class="chapter" data-level="10" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html"><i class="fa fa-check"></i><b>10</b> Spatial transcriptomics.</a><ul>
+<li class="chapter" data-level="10.1" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#load-in-the-preprocessed-wholebrainst-data."><i class="fa fa-check"></i><b>10.1</b> Load in the preprocessed WholeBrain/ST-data.</a></li>
+<li class="chapter" data-level="10.2" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#plotting-gene-expressions"><i class="fa fa-check"></i><b>10.2</b> Plotting gene expressions</a></li>
+<li class="chapter" data-level="10.3" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#confirmatory-analysis"><i class="fa fa-check"></i><b>10.3</b> Confirmatory analysis</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#confirmatory-conclusion"><i class="fa fa-check"></i><b>10.3.1</b> Confirmatory conclusion:</a></li>
+<li class="chapter" data-level="10.3.2" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#somatosensory"><i class="fa fa-check"></i><b>10.3.2</b> Somatosensory:</a></li>
+<li class="chapter" data-level="10.3.3" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#striatal"><i class="fa fa-check"></i><b>10.3.3</b> Striatal:</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#exploratory-analysis"><i class="fa fa-check"></i><b>10.4</b> Exploratory analysis</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#exploratory-conclusion"><i class="fa fa-check"></i><b>10.4.1</b> Exploratory conclusion:</a></li>
+<li class="chapter" data-level="10.4.2" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#somatosensory-1"><i class="fa fa-check"></i><b>10.4.2</b> Somatosensory:</a></li>
+<li class="chapter" data-level="10.4.3" data-path="spatial-transcriptomics-.html"><a href="spatial-transcriptomics-.html#striatal-1"><i class="fa fa-check"></i><b>10.4.3</b> Striatal:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="mapseq.html"><a href="mapseq.html"><i class="fa fa-check"></i><b>11</b> MAPseq</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WholeBrain tutorials</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="spatial-transcriptomics." class="section level1">
+<h1><span class="header-section-number">10</span> Spatial transcriptomics.</h1>
+<div id="load-in-the-preprocessed-wholebrainst-data." class="section level2">
+<h2><span class="header-section-number">10.1</span> Load in the preprocessed WholeBrain/ST-data.</h2>
+<p>First lets load the segmentation of individual spots (with polygon contours) as well as their centroid (seg.spots list object) together with segmentation of individual cell nuclei (cells) and the registration object to the reference atlas (regi).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load registration and segmentation output into R workingspace</span>
+<span class="kw">load</span>(<span class="st">&#39;./data/spatial_transcriptomics/170605/D2_S4_seg_and_reg.RData&#39;</span>)</code></pre></div>
+<p>With this you will have the following list objects in your working space:</p>
+<ul>
+<li><code>seg.spots</code> output from <code>segmentation(image, get.contour=TRUE)</code> on the Cy3 spot image.</li>
+<li><code>cells</code> output from <code>segmentation(image)</code> on the H&amp;E image (individual nuclei and tissue contour).</li>
+<li><code>regi</code> output from <code>registration(image, coordinate=X)</code></li>
+</ul>
+<p>Check that this is true by typing <code>ls()</code> in the R console to check objects in your working space.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
+<pre><code>## [1] &quot;cells&quot;     &quot;regi&quot;      &quot;seg.spots&quot;</code></pre>
+<p>You can try to plot all individual cell nuclei and all segmented spots by the following commands:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#helper function to plot spots as polygons</span>
+polygon.spot&lt;-function(contour.ID, <span class="dt">alpha=</span><span class="fl">0.2</span>){
+  x&lt;-seg.spots$soma$contour.x[<span class="kw">which</span>(seg.spots$soma$contour.ID==contour.ID)]
+  y&lt;-seg.spots$soma$contour.y[<span class="kw">which</span>(seg.spots$soma$contour.ID==contour.ID)]
+  <span class="kw">polygon</span>(x,y, <span class="dt">border=</span><span class="st">&#39;darkred&#39;</span>, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>, alpha))
+}
+<span class="co">#helper function to plot atlas regions in the tissue</span>
+polygon.atlas&lt;-function(contour.ID){
+  <span class="co">#scale fatcor to upsample to original image</span>
+  scale.factor&lt;-<span class="kw">mean</span>(<span class="kw">c</span>(regi$transformationgrid$height,regi$transformationgrid$width)/<span class="kw">dim</span>(regi$transformationgrid$mx))
+  for(i in <span class="dv">1</span>:<span class="dv">2</span>){
+    region&lt;-regi$atlas$outlines[[contour.ID]][<span class="kw">c</span>(<span class="dv">2</span>*<span class="dv">1-1</span>,<span class="dv">2</span>*<span class="dv">1</span>)+<span class="dv">4</span>]
+    <span class="kw">names</span>(region)&lt;-<span class="kw">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>)
+    <span class="kw">polygon</span>(region$x*scale.factor, region$y*scale.factor, <span class="dt">border=</span><span class="st">&#39;purple&#39;</span>)
+  }
+}</code></pre></div>
+<p>Then lets plot this with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#do some plotting</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+<span class="co">#plot cell nuclei as black small spots</span>
+<span class="kw">plot</span>(cells$soma$x, cells$soma$y, <span class="dt">cex=</span><span class="fl">0.08</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">max</span>(cells$soma$y),<span class="dv">0</span>), <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylab=</span><span class="st">&#39;&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;&#39;</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)
+<span class="co">#plot region outlines</span>
+<span class="kw">invisible</span>(<span class="kw">lapply</span>(<span class="dv">1</span>:regi$atlas$numRegions, polygon.atlas))
+<span class="co">#plot spots as polygons</span>
+<span class="kw">invisible</span>(<span class="kw">lapply</span>(<span class="kw">unique</span>(seg.spots$soma$contour.ID), polygon.spot))
+<span class="co">#make a ROI for closeup</span>
+roi&lt;-<span class="kw">list</span>(<span class="dt">x=</span><span class="kw">median</span>(cells$soma$x)+<span class="kw">c</span>(-<span class="dv">1000</span>,<span class="dv">1000</span>), <span class="dt">y=</span><span class="kw">median</span>(cells$soma$y)+<span class="kw">c</span>(-<span class="dv">1000</span>,<span class="dv">1000</span>))
+<span class="kw">polygon</span>(<span class="kw">c</span>(roi$x, <span class="kw">rev</span>(roi$x)), <span class="kw">rep</span>(roi$y, <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">border=</span><span class="st">&#39;green3&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="co">#plot closeup</span>
+<span class="co">#plot cell nuclei as black small spots</span>
+<span class="kw">plot</span>(cells$soma$x, cells$soma$y, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span>roi$y,  <span class="dt">xlim=</span>roi$x, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">ylab=</span><span class="st">&#39;&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;&#39;</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)
+<span class="kw">polygon</span>(<span class="kw">c</span>(roi$x, <span class="kw">rev</span>(roi$x)), <span class="kw">rep</span>(roi$y, <span class="dt">each=</span><span class="dv">2</span>), <span class="dt">border=</span><span class="st">&#39;green3&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">box</span>()
+<span class="co">#plot spots as polygons</span>
+<span class="kw">invisible</span>(<span class="kw">lapply</span>(<span class="kw">unique</span>(seg.spots$soma$contour.ID), polygon.spot))</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Then load in the integrated ST-data and WholeBrain dataset as a list object called dataset with the following members:</p>
+<ul>
+<li><code>dataset$spots</code> data.frame object from <code>get.cells.ids(regi, seg.spots, forward.warps=TRUE)</code></li>
+<li><code>dataset$genes</code> data.frame object with transcript count where each row corresponds to the same row (spot) in <code>dataset$spots</code> and each column is a gene.</li>
+<li><code>dataset$nuclei</code> data.frame object from <code>get.cells.ids(regi, cells, forward.warps=TRUE)</code> contains all nuclei as rows and each nuclei is assigned to a spot.id (<code>datset$nuclei$spot.id</code>) corresponding to spot.id in <code>dataset$spots$spot.id</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load combined ST-data and WholeBrain output as a list object called dataset with members </span>
+<span class="co"># dataset$spots (row= individual spots, col= region acronyms etc), dataset$genes (row = spots, col=genes)</span>
+<span class="co"># dataset$nuclei individually segmented nuclei with parent spot indicted by spot.id </span>
+<span class="co"># which have corresponding vector in dataset$spots$spot.id.</span>
+<span class="kw">load</span>(<span class="st">&#39;./data/spatial_transcriptomics/170605/D2_S4_p1_0_mapped.RData&#39;</span>)</code></pre></div>
+<p>Your working space should now look like:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
+<pre><code>## [1] &quot;cells&quot;         &quot;dataset&quot;       &quot;polygon.atlas&quot; &quot;polygon.spot&quot; 
+## [5] &quot;regi&quot;          &quot;roi&quot;           &quot;seg.spots&quot;</code></pre>
+<p>We can for example see that there is a good correlation between number of nuclei inside a spot and number of detected genes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">genecount&lt;-<span class="kw">apply</span>(dataset$genes, <span class="dv">1</span>, function(x)<span class="kw">sum</span>(x&gt;<span class="dv">0</span>))
+gene.expression&lt;-<span class="kw">apply</span>(dataset$genes, <span class="dv">1</span>, function(x)<span class="kw">mean</span>(x[x&gt;<span class="dv">0</span>]))
+
+<span class="co">#Place Pearson correlation coefficient in quadrant.</span>
+get.quadrant&lt;-function(x,y, <span class="dt">lim=</span><span class="kw">c</span>(<span class="fl">0.75</span>,<span class="fl">0.85</span>),<span class="dt">col=</span><span class="st">&#39;black&#39;</span>){
+  <span class="kw">text</span>(<span class="kw">max</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)*lim[<span class="dv">1</span>],
+  <span class="kw">max</span>(y, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)*lim[<span class="dv">2</span>],
+  <span class="kw">paste</span>(<span class="st">&#39;R = &#39;</span>, <span class="kw">round</span>(<span class="kw">cor</span>(<span class="kw">na.omit</span>(<span class="kw">cbind</span>(x, y)))[<span class="dv">1</span>,<span class="dv">2</span>],<span class="dv">2</span>)),
+  <span class="dt">col=</span>col
+  )
+}
+
+<span class="co">#plot</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+<span class="kw">par</span>(<span class="dt">yaxs=</span><span class="st">&#39;i&#39;</span>, <span class="dt">xaxs=</span><span class="st">&#39;r&#39;</span>, <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))
+<span class="kw">plot</span>(dataset$spots$nuclei, genecount, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xlab=</span><span class="st">&#39;nuclei in spot&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Genes detected&#39;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">50</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">axes=</span><span class="ot">FALSE</span>)
+<span class="kw">get.quadrant</span>(dataset$spots$nuclei, genecount, <span class="dt">lim=</span><span class="kw">c</span>(<span class="fl">0.99</span>,<span class="fl">0.25</span>))
+<span class="kw">points</span>(<span class="kw">data.frame</span>(dataset$spots$nuclei, genecount)[<span class="kw">which</span>(dataset$spots$spot.id%in%<span class="kw">c</span>(<span class="dv">693</span>,<span class="dv">706</span>)),], <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">bg=</span><span class="kw">c</span>(<span class="st">&#39;#998ec3&#39;</span>,<span class="st">&#39;#f1a340&#39;</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;#542788&#39;</span>, <span class="st">&#39;#b35806&#39;</span>), <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">lwd=</span><span class="fl">1.5</span>)
+<span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">50</span>)) 
+<span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">at=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5000</span>,<span class="dv">10000</span>), <span class="dt">las=</span><span class="dv">1</span>)
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>))
+<span class="kw">plot</span>(dataset$spots$nuclei, gene.expression, <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">cex=</span><span class="fl">0.8</span>, <span class="dt">xlab=</span><span class="st">&#39;nuclei in spot&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Avg. molecules </span><span class="ch">\n</span><span class="st"> per gene&#39;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">50</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="dt">axes=</span><span class="ot">FALSE</span>)
+<span class="kw">get.quadrant</span>(dataset$spots$nuclei, gene.expression, <span class="dt">lim=</span><span class="kw">c</span>(<span class="fl">0.95</span>,<span class="fl">0.35</span>))
+<span class="kw">points</span>(<span class="kw">data.frame</span>(dataset$spots$nuclei, gene.expression)[<span class="kw">which</span>(dataset$spots$spot.id%in%<span class="kw">c</span>(<span class="dv">693</span>,<span class="dv">706</span>)),], <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">bg=</span><span class="kw">c</span>(<span class="st">&#39;#998ec3&#39;</span>,<span class="st">&#39;#f1a340&#39;</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;#542788&#39;</span>, <span class="st">&#39;#b35806&#39;</span>), <span class="dt">cex=</span><span class="fl">1.2</span>, <span class="dt">lwd=</span><span class="fl">1.5</span>)
+<span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">50</span>)) 
+<span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">at=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">2.5</span>,<span class="dv">4</span>), <span class="dt">las=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-7-1.png" width="403.0243584" /></p>
+<p>Let us now load in a custom plotting function for plotting gene expression for individual genes using <code>base R</code>.</p>
+</div>
+<div id="plotting-gene-expressions" class="section level2">
+<h2><span class="header-section-number">10.2</span> Plotting gene expressions</h2>
+<p>The function to display gene expression with base R is the following load it into working space by running this code chunk:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot.atlas&lt;-function(regi, <span class="dt">main=</span><span class="st">&#39;&#39;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">4</span>), <span class="dt">ylim=</span><span class="kw">c</span>(-<span class="dv">7</span>, -<span class="dv">1</span>)){
+  scale.factor&lt;-<span class="kw">mean</span>(<span class="kw">c</span>(regi$transformationgrid$height,regi$transformationgrid$width)/<span class="kw">dim</span>(regi$transformationgrid$mx))
+  regi&lt;-<span class="kw">get.forward.warpRCPP</span>(regi)
+  region&lt;-regi$atlas$outlines[[<span class="dv">1</span>]][<span class="kw">c</span>(<span class="dv">2</span>*<span class="dv">1-1</span>,<span class="dv">2</span>*<span class="dv">1</span>)]
+      <span class="kw">names</span>(region)&lt;-<span class="kw">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>)
+      index&lt;-<span class="kw">round</span>(<span class="kw">cbind</span>(region$y, region$x))*scale.factor
+      <span class="co">#region$x&lt;-regi$transformationgrid$mxF[index]</span>
+      <span class="co">#region$y&lt;-regi$transformationgrid$myF[index]</span>
+      region&lt;-<span class="kw">list</span>(<span class="dt">x=</span>index[,<span class="dv">2</span>], <span class="dt">y=</span>index[,<span class="dv">1</span>])
+      region&lt;-<span class="kw">stereotactic.coordinates</span>(region$x, region$y, regi, <span class="dt">inverse=</span><span class="ot">FALSE</span>)
+      <span class="kw">plot</span>(region, <span class="dt">asp=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&#39;n&#39;</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>, <span class="dt">main =</span> main, <span class="dt">ylab=</span><span class="st">&#39;Dorso-ventral (mm)&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Medio-lateral (mm)&#39;</span>)
+  
+  for(j in <span class="dv">1</span>:regi$atlas$numRegions){ 
+    for(i in <span class="dv">1</span>:<span class="dv">2</span>){
+      region&lt;-regi$atlas$outlines[[j]][<span class="kw">c</span>(<span class="dv">2</span>*<span class="dv">1-1</span>,<span class="dv">2</span>*<span class="dv">1</span>)]
+      <span class="kw">names</span>(region)&lt;-<span class="kw">c</span>(<span class="st">&#39;x&#39;</span>, <span class="st">&#39;y&#39;</span>)
+      index&lt;-<span class="kw">round</span>(<span class="kw">cbind</span>(region$y, region$x))*scale.factor
+      <span class="co">#region$x&lt;-regi$transformationgrid$mxF[index]</span>
+      <span class="co">#region$y&lt;-regi$transformationgrid$myF[index]</span>
+      region&lt;-<span class="kw">list</span>(<span class="dt">x=</span>index[,<span class="dv">2</span>], <span class="dt">y=</span>index[,<span class="dv">1</span>])
+      region&lt;-<span class="kw">stereotactic.coordinates</span>(region$x, region$y, regi, <span class="dt">inverse=</span><span class="ot">FALSE</span>)
+      <span class="kw">polygon</span>(region$x, region$y, <span class="dt">border=</span><span class="st">&#39;black&#39;</span>, <span class="dt">col=</span><span class="kw">gray</span>(<span class="fl">0.95</span>))
+    }
+  }
+  xlim&lt;-<span class="kw">sort</span>(xlim, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)
+  ylim&lt;-<span class="kw">sort</span>(ylim, <span class="dt">decreasing=</span><span class="ot">TRUE</span>)
+  
+  <span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">at =</span> <span class="kw">seq</span>(ylim[<span class="dv">1</span>], ylim[<span class="dv">2</span>],<span class="dt">by=</span>-<span class="fl">0.1</span>), <span class="dt">labels =</span> <span class="ot">FALSE</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">tck =</span> -<span class="fl">0.0125</span>)
+  <span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">at =</span> <span class="kw">seq</span>(ylim[<span class="dv">1</span>], ylim[<span class="dv">2</span>], <span class="dt">by=</span>-<span class="fl">0.5</span>), <span class="dt">labels =</span> <span class="ot">FALSE</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="dt">tck =</span> -<span class="fl">0.025</span>)
+  <span class="kw">axis</span>(<span class="dv">2</span>, <span class="dt">at =</span> ylim[<span class="dv">1</span>]:ylim[<span class="dv">2</span>],  <span class="dt">las =</span> <span class="dv">1</span>)                
+  
+  <span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at =</span> <span class="kw">seq</span>(xlim[<span class="dv">1</span>], -xlim[<span class="dv">2</span>],<span class="dt">by=</span>-<span class="fl">0.1</span>), <span class="dt">labels =</span> <span class="ot">FALSE</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">tck =</span> -<span class="fl">0.0125</span>)
+  <span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at =</span> <span class="kw">seq</span>(xlim[<span class="dv">1</span>], -xlim[<span class="dv">2</span>], <span class="dt">by=</span>-<span class="fl">0.5</span>), <span class="dt">labels =</span> <span class="ot">FALSE</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="dt">tck =</span> -<span class="fl">0.025</span>)
+  <span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at =</span> xlim[<span class="dv">1</span>]:xlim[<span class="dv">2</span>],  <span class="dt">las =</span> <span class="dv">1</span>)                  
+   
+}
+
+plot.gene&lt;-function(dataset, regi, gene, <span class="dt">colorfunc =</span> heat.colors, <span class="dt">atlas=</span><span class="ot">TRUE</span>){
+  if(atlas)
+    <span class="kw">plot.atlas</span>(regi, <span class="dt">main=</span>gene)
+
+  gene&lt;-dataset$genes[,gene]
+  colors &lt;-<span class="st"> </span><span class="kw">mapply</span>(function(col, i) <span class="kw">adjustcolor</span>(col, <span class="dt">alpha.f =</span> (gene/<span class="kw">max</span>(gene))[i]), 
+                 <span class="kw">colorfunc</span>(<span class="kw">length</span>(<span class="kw">unique</span>(gene)))[gene<span class="dv">+1</span>], <span class="kw">seq_along</span>(gene))   
+
+  inside.tissue&lt;-!<span class="kw">is.na</span>(dataset$spots$acronym)
+  <span class="kw">points</span>(dataset$spots$ML[inside.tissue], dataset$spots$DV[inside.tissue], <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span>colors[inside.tissue])
+} 
+
+legend.gene&lt;-function(dataset, gene, <span class="dt">colorfunc =</span> heat.colors){
+  <span class="kw">par</span>(<span class="dt">xaxs=</span><span class="st">&#39;i&#39;</span>)
+  <span class="kw">plot</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dt">type =</span> <span class="st">&#39;n&#39;</span>, <span class="dt">axes =</span> F,<span class="dt">xlab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;&#39;</span>, <span class="dt">main =</span> gene, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))
+  gene&lt;-dataset$genes[,gene]
+  color&lt;-<span class="kw">sapply</span>(<span class="kw">seq_along</span>(<span class="kw">unique</span>(gene)), function(x){<span class="kw">adjustcolor</span>(<span class="kw">colorfunc</span>(<span class="kw">length</span>(<span class="kw">unique</span>(gene)))[x], <span class="dt">alpha.f =</span> (<span class="kw">sort</span>(<span class="kw">unique</span>(gene))/<span class="kw">max</span>(gene))[x] )} )
+  legend_image &lt;-<span class="st"> </span><span class="kw">as.raster</span>(<span class="kw">matrix</span>(<span class="kw">rev</span>(color), <span class="dt">ncol=</span><span class="dv">1</span>))
+  <span class="kw">axis</span>(<span class="dv">4</span>, <span class="dt">at =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">l=</span><span class="dv">5</span>), <span class="dt">labels =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="kw">max</span>(gene),<span class="dt">l=</span><span class="dv">5</span>), <span class="dt">las=</span><span class="dv">1</span>)
+  <span class="kw">rasterImage</span>(legend_image, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>)
+  <span class="kw">polygon</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="dv">1</span>))
+  <span class="kw">mtext</span>(<span class="st">&#39;Count&#39;</span>,<span class="dv">4</span>,<span class="fl">3.5</span>)
+  histogram&lt;-<span class="kw">hist</span>(gene, <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="kw">max</span>(gene)), <span class="dt">plot=</span><span class="ot">FALSE</span>)
+  y&lt;-histogram$counts
+  y&lt;-<span class="kw">log2</span>(y<span class="dv">+1</span>)
+  y&lt;-<span class="fl">0.5</span>*(y/<span class="kw">max</span>(y))
+  x&lt;-(histogram$mids<span class="fl">-0.5</span>)/<span class="kw">max</span>(histogram$mids<span class="fl">-0.5</span>)
+  y&lt;-<span class="kw">c</span>(<span class="dv">0</span>, -<span class="kw">rep</span>(y, <span class="dt">each=</span><span class="dv">2</span>)[-<span class="kw">length</span>(<span class="kw">rep</span>(y, <span class="dt">each=</span><span class="dv">2</span>))])
+  x&lt;-<span class="kw">rep</span>(x, <span class="dt">each=</span><span class="dv">2</span>)
+  <span class="kw">par</span>(<span class="dt">xpd=</span>T)
+  <span class="kw">polygon</span>(<span class="kw">c</span>(y, <span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(y))), <span class="kw">c</span>(x, <span class="kw">rev</span>(x)), <span class="dt">col=</span><span class="st">&#39;purple&#39;</span>)
+  <span class="kw">par</span>(<span class="dt">xpd=</span>F)
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#viridis for color scale</span>
+<span class="kw">library</span>(viridis)</code></pre></div>
+<pre><code>## Loading required package: viridisLite</code></pre>
+<p>Now we can plot any gene like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">2</span>,<span class="dt">ncol=</span><span class="dv">2</span>), <span class="dt">width =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>),<span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">0</span>))
+<span class="kw">plot.gene</span>(dataset, regi, <span class="dt">gene=</span><span class="st">&#39;Penk&#39;</span>, <span class="dt">colorfunc=</span>viridis)
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">10</span>))
+<span class="kw">legend.gene</span>(dataset, <span class="dt">gene=</span><span class="st">&#39;Penk&#39;</span>, <span class="dt">colorfunc=</span>viridis)</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-11-1.png" width="712.975536" /></p>
+<p>Now lets declare a plotting function for plotting all genes we throw at it in a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot.these.genes&lt;-function(genelist){
+non.detected&lt;-<span class="kw">character</span>()
+striatum&lt;-<span class="kw">character</span>()
+somatosensory&lt;-<span class="kw">character</span>()
+for(i in genelist){
+
+if(<span class="kw">sum</span>(i%in%<span class="kw">names</span>(dataset$genes)) ){
+  <span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">2</span>,<span class="dt">ncol=</span><span class="dv">2</span>), <span class="dt">width =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>),<span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))
+  <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">0</span>))
+  <span class="kw">plot.gene</span>(dataset, regi, <span class="dt">gene=</span>i, <span class="dt">colorfunc=</span>viridis)
+  <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>))
+  <span class="kw">legend.gene</span>(dataset, <span class="dt">gene=</span>i, <span class="dt">colorfunc=</span>viridis)
+  
+  <span class="kw">cat</span>(i)
+  region.index&lt;-<span class="kw">substr</span>(dataset$spots$acronym, <span class="dv">1</span>,<span class="dv">2</span>)
+  CP&lt;-dataset$genes[<span class="kw">which</span>(region.index==<span class="st">&#39;CP&#39;</span>), i]
+  SS&lt;-dataset$genes[<span class="kw">which</span>(region.index==<span class="st">&#39;SS&#39;</span>), i]
+  ttest&lt;-<span class="kw">t.test</span>(CP, SS)
+  if(!<span class="kw">is.nan</span>(ttest$p.value)){
+    if(ttest$p.value&lt;<span class="fl">0.05</span>){
+      <span class="kw">cat</span>(<span class="st">&#39;        █▬█ █ ▀█▀&#39;</span>)
+      if(ttest$statistic&lt;<span class="dv">0</span>){
+        <span class="kw">cat</span>(<span class="st">&#39; MARKER FOR SOMATOSENSORY!&#39;</span>)
+        somatosensory&lt;-<span class="kw">append</span>(somatosensory, i)
+      }else{
+        <span class="kw">cat</span>(<span class="st">&#39; MARKER FOR CAUDATE PUTAMEN!&#39;</span>)
+        striatum&lt;-<span class="kw">append</span>(striatum, i)
+      }
+    }
+  }
+ 
+  <span class="kw">cat</span>(<span class="kw">paste</span>(<span class="st">&#39;</span><span class="ch">\n</span><span class="st"> -----</span><span class="ch">\n</span><span class="st"> Average number of&#39;</span>, i,<span class="st">&#39;transcripts detected:</span><span class="ch">\n</span><span class="st"> CPu : M =&#39;</span>, <span class="kw">round</span>(<span class="kw">mean</span>(CP), <span class="dv">2</span>), <span class="st">&#39;( SD =&#39;</span>, <span class="kw">round</span>(<span class="kw">sd</span>(CP), <span class="dv">2</span>),<span class="st">&#39;)&#39;</span>, <span class="st">&#39;molecules </span><span class="ch">\n</span><span class="st"> SS : M =&#39;</span>, <span class="kw">round</span>(<span class="kw">mean</span>(SS), <span class="dv">2</span>)), <span class="st">&#39;( SD =&#39;</span>, <span class="kw">round</span>(<span class="kw">sd</span>(SS), <span class="dv">2</span>),<span class="st">&#39;) molecules</span><span class="ch">\n</span><span class="st"> -----</span><span class="ch">\n</span><span class="st">&#39;</span>)
+  <span class="kw">print</span>(ttest)
+}else{
+  non.detected&lt;-<span class="kw">append</span>(non.detected, i)
+}
+}
+<span class="kw">cat</span>(<span class="kw">paste0</span>(<span class="st">&#39;</span><span class="ch">\n</span><span class="st"> Nondetected genes: </span><span class="ch">\n</span><span class="st">&#39;</span>, <span class="kw">paste0</span>(non.detected, <span class="dt">collapse=</span><span class="st">&#39;, &#39;</span>)))
+<span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">non.detected =</span> non.detected, <span class="dt">striatum =</span> striatum, <span class="dt">somatosensory =</span> somatosensory))
+}</code></pre></div>
+</div>
+<div id="confirmatory-analysis" class="section level2">
+<h2><span class="header-section-number">10.3</span> Confirmatory analysis</h2>
+<p>Running <code>plot.these.genes()</code> with a character vector of genes that we are interested will plot all of them:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Genes that are differentially expressed between striatal and somatosensory cortical astrocytes:</span>
+astrocytes&lt;-<span class="kw">c</span>(<span class="st">&quot;Crym&quot;</span>, <span class="st">&quot;6330403K07Rik&quot;</span>, <span class="st">&quot;Prss56&quot;</span>, <span class="st">&quot;Fam134b&quot;</span>, <span class="st">&quot;Sntb1&quot;</span>, <span class="st">&quot;Rcn1&quot;</span>, <span class="st">&quot;Nme6&quot;</span>, <span class="st">&quot;Bex2&quot;</span>, <span class="st">&quot;Hey2&quot;</span>, <span class="st">&quot;Sepn1&quot;</span>, <span class="st">&quot;Ints12&quot;</span>, <span class="st">&quot;Abtb2&quot;</span>, <span class="st">&quot;Olig2&quot;</span>,<span class="st">&quot;Vps18&quot;</span>,<span class="st">&quot;Ppif&quot;</span>, <span class="st">&quot;Gpd1&quot;</span>, <span class="st">&quot;Olig1&quot;</span>, <span class="st">&quot;Slc25a18&quot;</span>)
+conf.analysis&lt;-<span class="kw">plot.these.genes</span>(astrocytes)</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-1.png" width="522.8487264" /></p>
+<pre><code>## Crym        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Crym transcripts detected:
+##  CPu : M = 2.17 ( SD = 2.19 ) molecules 
+##  SS : M = 0.63 ( SD = 0.8 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 7.1829, df = 145.34, p-value = 3.274e-11
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  1.119830 1.970018
+## sample estimates:
+## mean of x mean of y 
+## 2.1709402 0.6260163</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-2.png" width="522.8487264" /></p>
+<pre><code>## Prss56
+##  -----
+##  Average number of Prss56 transcripts detected:
+##  CPu : M = 0.02 ( SD = 0.13 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.4203, df = 116, p-value = 0.1582
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.00674298  0.04093101
+## sample estimates:
+##  mean of x  mean of y 
+## 0.01709402 0.00000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-3.png" width="522.8487264" /></p>
+<pre><code>## Fam134b
+##  -----
+##  Average number of Fam134b transcripts detected:
+##  CPu : M = 0.41 ( SD = 0.67 ) molecules 
+##  SS : M = 0.42 ( SD = 0.74 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.13768, df = 237.6, p-value = 0.8906
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1914788  0.1664632
+## sample estimates:
+## mean of x mean of y 
+## 0.4102564 0.4227642</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-4.png" width="522.8487264" /></p>
+<pre><code>## Rcn1        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Rcn1 transcripts detected:
+##  CPu : M = 0.34 ( SD = 0.68 ) molecules 
+##  SS : M = 0.16 ( SD = 0.41 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 2.443, df = 188.58, p-value = 0.01549
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.03451781 0.32403962
+## sample estimates:
+## mean of x mean of y 
+## 0.3418803 0.1626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-5.png" width="522.8487264" /></p>
+<pre><code>## Nme6
+##  -----
+##  Average number of Nme6 transcripts detected:
+##  CPu : M = 0.04 ( SD = 0.24 ) molecules 
+##  SS : M = 0.03 ( SD = 0.18 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.37104, df = 212.71, p-value = 0.711
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.04405236  0.06448180
+## sample estimates:
+##  mean of x  mean of y 
+## 0.04273504 0.03252033</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-6.png" width="522.8487264" /></p>
+<pre><code>## Bex2
+##  -----
+##  Average number of Bex2 transcripts detected:
+##  CPu : M = 3.17 ( SD = 2.02 ) molecules 
+##  SS : M = 3.67 ( SD = 2.48 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.7041, df = 232.63, p-value = 0.08969
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.06886101  0.07740801
+## sample estimates:
+## mean of x mean of y 
+##  3.170940  3.666667</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-7.png" width="522.8487264" /></p>
+<pre><code>## Hey2
+##  -----
+##  Average number of Hey2 transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.22 ) molecules 
+##  SS : M = 0.02 ( SD = 0.13 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.75549, df = 181.22, p-value = 0.4509
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.02889519  0.06475094
+## sample estimates:
+##  mean of x  mean of y 
+## 0.03418803 0.01626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-8.png" width="522.8487264" /></p>
+<pre><code>## Sepn1        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Sepn1 transcripts detected:
+##  CPu : M = 0.08 ( SD = 0.27 ) molecules 
+##  SS : M = 0.2 ( SD = 0.49 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.3335, df = 190.73, p-value = 0.02067
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.21811251 -0.01828524
+## sample estimates:
+##  mean of x  mean of y 
+## 0.07692308 0.19512195</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-9.png" width="522.8487264" /></p>
+<pre><code>## Ints12
+##  -----
+##  Average number of Ints12 transcripts detected:
+##  CPu : M = 0.1 ( SD = 0.38 ) molecules 
+##  SS : M = 0.16 ( SD = 0.45 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.1178, df = 234.72, p-value = 0.2648
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.16585309  0.04577804
+## sample estimates:
+## mean of x mean of y 
+## 0.1025641 0.1626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-10.png" width="522.8487264" /></p>
+<pre><code>## Abtb2        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Abtb2 transcripts detected:
+##  CPu : M = 0.05 ( SD = 0.22 ) molecules 
+##  SS : M = 0.16 ( SD = 0.43 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.5304, df = 184.03, p-value = 0.01223
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.19811407 -0.02452508
+## sample estimates:
+##  mean of x  mean of y 
+## 0.05128205 0.16260163</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-11.png" width="522.8487264" /></p>
+<pre><code>## Olig2
+##  -----
+##  Average number of Olig2 transcripts detected:
+##  CPu : M = 0.21 ( SD = 0.49 ) molecules 
+##  SS : M = 0.16 ( SD = 0.39 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.8908, df = 222.36, p-value = 0.374
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.06191493  0.16406211
+## sample estimates:
+## mean of x mean of y 
+## 0.2136752 0.1626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-12.png" width="522.8487264" /></p>
+<pre><code>## Vps18        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Vps18 transcripts detected:
+##  CPu : M = 0.23 ( SD = 0.48 ) molecules 
+##  SS : M = 0.37 ( SD = 0.62 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.0072, df = 228.85, p-value = 0.04591
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.283802806 -0.002626212
+## sample estimates:
+## mean of x mean of y 
+## 0.2307692 0.3739837</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-13.png" width="522.8487264" /></p>
+<pre><code>## Ppif
+##  -----
+##  Average number of Ppif transcripts detected:
+##  CPu : M = 0.13 ( SD = 0.38 ) molecules 
+##  SS : M = 0.18 ( SD = 0.43 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.96975, df = 237.34, p-value = 0.3332
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.15356323  0.05224991
+## sample estimates:
+## mean of x mean of y 
+## 0.1282051 0.1788618</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-14.png" width="522.8487264" /></p>
+<pre><code>## Gpd1        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Gpd1 transcripts detected:
+##  CPu : M = 0.35 ( SD = 0.7 ) molecules 
+##  SS : M = 0.63 ( SD = 0.91 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.721, df = 228.2, p-value = 0.007011
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.48917663 -0.07826135
+## sample estimates:
+## mean of x mean of y 
+## 0.3504274 0.6341463</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-15.png" width="522.8487264" /></p>
+<pre><code>## Olig1
+##  -----
+##  Average number of Olig1 transcripts detected:
+##  CPu : M = 1.38 ( SD = 1.49 ) molecules 
+##  SS : M = 1.29 ( SD = 1.34 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.45585, df = 232.13, p-value = 0.6489
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.2770180  0.4437889
+## sample estimates:
+## mean of x mean of y 
+##  1.376068  1.292683</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-13-16.png" width="522.8487264" /></p>
+<pre><code>## Slc25a18        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Slc25a18 transcripts detected:
+##  CPu : M = 0.27 ( SD = 0.54 ) molecules 
+##  SS : M = 0.62 ( SD = 0.73 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -4.1812, df = 223.72, p-value = 4.164e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.5066931 -0.1820708
+## sample estimates:
+## mean of x mean of y 
+## 0.2735043 0.6178862 
+## 
+## 
+##  Nondetected genes: 
+## 6330403K07Rik, Sntb1</code></pre>
+<div id="confirmatory-conclusion" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Confirmatory conclusion:</h3>
+<ul>
+<li>Somatosensory:</li>
+<li><code>{r} cat(paste(conf.analysis$somatosensory , collapse=' ,'))</code></li>
+<li>Striatal:</li>
+<li><code>{r} cat(paste(conf.analysis$striatum , collapse=' ,'))</code></li>
+<li>Non detected:</li>
+<li><code>{r} cat(paste(conf.analysis$non.detected , collapse=' ,'))</code></li>
+</ul>
+</div>
+<div id="somatosensory" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Somatosensory:</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="kw">length</span>(conf.analysis$somatosensory)%/%<span class="dv">4+1</span>,<span class="dv">4</span>%/%<span class="dv">4+1</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>))
+<span class="kw">invisible</span>(<span class="kw">sapply</span>(conf.analysis$somatosensory, function(x)<span class="kw">plot.gene</span>(dataset, regi, <span class="dt">gene=</span>x, <span class="dt">colorfunc=</span>viridis)))</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-14-1.png" width="672" /><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+</div>
+<div id="striatal" class="section level3">
+<h3><span class="header-section-number">10.3.3</span> Striatal:</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="kw">length</span>(conf.analysis$striatum)%/%<span class="dv">4+1</span>,<span class="dv">4</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>))
+<span class="kw">invisible</span>(<span class="kw">sapply</span>(conf.analysis$striatum, function(x)<span class="kw">plot.gene</span>(dataset, regi, <span class="dt">gene=</span>x, <span class="dt">colorfunc=</span>viridis)))</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exploratory-analysis" class="section level2">
+<h2><span class="header-section-number">10.4</span> Exploratory analysis</h2>
+<p>Now lets run for some other genes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Genes that are differentially expressed between striatal and somatosensory cortical astrocytes:</span>
+genes.of.interest&lt;-<span class="kw">c</span>(<span class="st">&quot;Adm&quot;</span>, <span class="st">&quot;Gdf11&quot;</span>, <span class="st">&quot;Mstn&quot;</span>, <span class="st">&quot;Bmp3&quot;</span>, <span class="st">&quot;Gdf10&quot;</span>, <span class="st">&quot;Gdf2&quot;</span>, <span class="st">&quot;Bmp10&quot;</span>, <span class="st">&quot;Gdf6&quot;</span>, <span class="st">&quot;Gdf5&quot;</span>, <span class="st">&quot;Gdf7&quot;</span>, <span class="st">&quot;Bmp5&quot;</span>, <span class="st">&quot;Bmp6&quot;</span>, <span class="st">&quot;Bmp7&quot;</span>, <span class="st">&quot;Bmp8a&quot;</span>, <span class="st">&quot;Bmp8b&quot;</span>, <span class="st">&quot;Bmp2&quot;</span>, <span class="st">&quot;Bmp4&quot;</span>, <span class="st">&quot;Cntf&quot;</span>, <span class="st">&quot;Lif&quot;</span>, <span class="st">&quot;Il6&quot;</span>, <span class="st">&quot;Csf1&quot;</span>, <span class="st">&quot;Csf3&quot;</span>, <span class="st">&quot;Csf2&quot;</span>, <span class="st">&quot;Egf&quot;</span>, <span class="st">&quot;Efna1&quot;</span>, <span class="st">&quot;Efna2&quot;</span>, <span class="st">&quot;Efna3&quot;</span>, <span class="st">&quot;Efna4&quot;</span>, <span class="st">&quot;Efna5&quot;</span>, <span class="st">&quot;Efnb1&quot;</span>, <span class="st">&quot;Efnb2&quot;</span>, <span class="st">&quot;Efnb3&quot;</span>, <span class="st">&quot;Epo&quot;</span>, <span class="st">&quot;Fgf1&quot;</span>, <span class="st">&quot;Fgf2&quot;</span>, <span class="st">&quot;Fgf3&quot;</span>, <span class="st">&quot;Fgf4&quot;</span>, <span class="st">&quot;Fgf5&quot;</span>, <span class="st">&quot;Fgf6&quot;</span>, <span class="st">&quot;Fgf7&quot;</span>, <span class="st">&quot;Fgf8&quot;</span>, <span class="st">&quot;Fgf9&quot;</span>, <span class="st">&quot;Fgf10&quot;</span>, <span class="st">&quot;Fgf11&quot;</span>, <span class="st">&quot;Fgf12&quot;</span>, <span class="st">&quot;Fgf13&quot;</span>, <span class="st">&quot;Fgf14&quot;</span>, <span class="st">&quot;Fgf16&quot;</span>, <span class="st">&quot;Fgf17&quot;</span>, <span class="st">&quot;Fgf18&quot;</span>, <span class="st">&quot;Fgf19&quot;</span>, <span class="st">&quot;Fgf20&quot;</span>, <span class="st">&quot;Fgf21&quot;</span>, <span class="st">&quot;Fgf22&quot;</span>, <span class="st">&quot;Fgf23&quot;</span>, <span class="st">&quot;Gdnf&quot;</span>, <span class="st">&quot;Nrtn&quot;</span>, <span class="st">&quot;Pspn&quot;</span>, <span class="st">&quot;Artn&quot;</span>, <span class="st">&quot;Gdf9&quot;</span>, <span class="st">&quot;Hgf&quot;</span>, <span class="st">&quot;Hdgf&quot;</span>, <span class="st">&quot;Ins&quot;</span>, <span class="st">&quot;Igf1&quot;</span>, <span class="st">&quot;Igf2&quot;</span>, <span class="st">&quot;Il1a&quot;</span>, <span class="st">&quot;Il1b&quot;</span>, <span class="st">&quot;Il2&quot;</span>, <span class="st">&quot;Il3&quot;</span>, <span class="st">&quot;Il4&quot;</span>, <span class="st">&quot;Il5&quot;</span>, <span class="st">&quot;Il6&quot;</span>, <span class="st">&quot;Il7&quot;</span>, <span class="st">&quot;Nrg1&quot;</span>, <span class="st">&quot;Nrg2&quot;</span>, <span class="st">&quot;Nrg3&quot;</span>, <span class="st">&quot;Nrg4&quot;</span>, <span class="st">&quot;Bdnf&quot;</span>, <span class="st">&quot;Ngf&quot;</span>, <span class="st">&quot;Ntf3&quot;</span>, <span class="st">&quot;Ntf4&quot;</span>, <span class="st">&quot;Pgf&quot;</span>, <span class="st">&quot;Pdgfa&quot;</span>, <span class="st">&quot;Pdgfb&quot;</span>, <span class="st">&quot;Rnls&quot;</span>, <span class="st">&quot;Tpo&quot;</span>, <span class="st">&quot;Tgfa&quot;</span>, <span class="st">&quot;Tgfb1&quot;</span>, <span class="st">&quot;Tgfb2&quot;</span>, <span class="st">&quot;Tgfb3&quot;</span>, <span class="st">&quot;Tnf&quot;</span>, <span class="st">&quot;Vegfa&quot;</span>, <span class="st">&quot;Vegfb&quot;</span>, <span class="st">&quot;Vegfc&quot;</span>, <span class="st">&quot;Vegfd&quot;</span>, <span class="st">&quot;Wnt1&quot;</span>, <span class="st">&quot;Wnt2&quot;</span>, <span class="st">&quot;Wnt2b&quot;</span>, <span class="st">&quot;Wnt13&quot;</span>, <span class="st">&quot;Wnt3a&quot;</span>, <span class="st">&quot;Wnt4&quot;</span>, <span class="st">&quot;Wnt5a&quot;</span>, <span class="st">&quot;Wnt5b&quot;</span>, <span class="st">&quot;Wnt6&quot;</span>, <span class="st">&quot;Wnt7a&quot;</span>, <span class="st">&quot;Wnt7b&quot;</span>, <span class="st">&quot;Wnt8a&quot;</span>, <span class="st">&quot;Wnt8b&quot;</span>, <span class="st">&quot;Wnt9a&quot;</span>, <span class="st">&quot;Wnt9b&quot;</span>, <span class="st">&quot;Wnt10a&quot;</span>, <span class="st">&quot;Wnt10b&quot;</span>, <span class="st">&quot;Wnt11&quot;</span>, <span class="st">&quot;Wnt16&quot;</span>, <span class="st">&quot;Penk&quot;</span>)
+
+expl.analysis&lt;-<span class="kw">plot.these.genes</span>(genes.of.interest)</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-1.png" width="522.8487264" /></p>
+<pre><code>## Adm
+##  -----
+##  Average number of Adm transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-2.png" width="522.8487264" /></p>
+<pre><code>## Gdf11
+##  -----
+##  Average number of Gdf11 transcripts detected:
+##  CPu : M = 0.13 ( SD = 0.34 ) molecules 
+##  SS : M = 0.08 ( SD = 0.3 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.1346, df = 232.57, p-value = 0.2577
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.03454511  0.12835374
+## sample estimates:
+##  mean of x  mean of y 
+## 0.12820513 0.08130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-3.png" width="522.8487264" /></p>
+<pre><code>## Mstn
+##  -----
+##  Average number of Mstn transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-4.png" width="522.8487264" /></p>
+<pre><code>## Bmp3        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Bmp3 transcripts detected:
+##  CPu : M = 0.08 ( SD = 0.33 ) molecules 
+##  SS : M = 0.19 ( SD = 0.43 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.2377, df = 226.51, p-value = 0.02621
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.20699456 -0.01314302
+## sample estimates:
+##  mean of x  mean of y 
+## 0.07692308 0.18699187</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-5.png" width="522.8487264" /></p>
+<pre><code>## Gdf10        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Gdf10 transcripts detected:
+##  CPu : M = 0.13 ( SD = 0.36 ) molecules 
+##  SS : M = 0.02 ( SD = 0.15 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 2.8728, df = 155.74, p-value = 0.004637
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.03243176 0.17519801
+## sample estimates:
+##  mean of x  mean of y 
+## 0.12820513 0.02439024</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-6.png" width="522.8487264" /></p>
+<pre><code>## Gdf6
+##  -----
+##  Average number of Gdf6 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-7.png" width="522.8487264" /></p>
+<pre><code>## Gdf5
+##  -----
+##  Average number of Gdf5 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-8.png" width="522.8487264" /></p>
+<pre><code>## Bmp6
+##  -----
+##  Average number of Bmp6 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-9.png" width="522.8487264" /></p>
+<pre><code>## Bmp7
+##  -----
+##  Average number of Bmp7 transcripts detected:
+##  CPu : M = 0.06 ( SD = 0.27 ) molecules 
+##  SS : M = 0.07 ( SD = 0.29 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.36702, df = 237.92, p-value = 0.7139
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.08495346  0.05827011
+## sample estimates:
+##  mean of x  mean of y 
+## 0.05982906 0.07317073</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-10.png" width="522.8487264" /></p>
+<pre><code>## Bmp8a
+##  -----
+##  Average number of Bmp8a transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-11.png" width="522.8487264" /></p>
+<pre><code>## Bmp2
+##  -----
+##  Average number of Bmp2 transcripts detected:
+##  CPu : M = 0.08 ( SD = 0.27 ) molecules 
+##  SS : M = 0.04 ( SD = 0.2 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.1883, df = 213.44, p-value = 0.236
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.02389638  0.09644173
+## sample estimates:
+##  mean of x  mean of y 
+## 0.07692308 0.04065041</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-12.png" width="522.8487264" /></p>
+<pre><code>## Bmp4
+##  -----
+##  Average number of Bmp4 transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.18 ) molecules 
+##  SS : M = 0.02 ( SD = 0.13 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.87924, df = 205.93, p-value = 0.3803
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.02227249  0.05812823
+## sample estimates:
+##  mean of x  mean of y 
+## 0.03418803 0.01626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-13.png" width="522.8487264" /></p>
+<pre><code>## Lif
+##  -----
+##  Average number of Lif transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-14.png" width="522.8487264" /></p>
+<pre><code>## Il6
+##  -----
+##  Average number of Il6 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-15.png" width="522.8487264" /></p>
+<pre><code>## Csf1
+##  -----
+##  Average number of Csf1 transcripts detected:
+##  CPu : M = 0.09 ( SD = 0.34 ) molecules 
+##  SS : M = 0.08 ( SD = 0.27 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.10486, df = 223.93, p-value = 0.9166
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.07418047  0.08251902
+## sample estimates:
+##  mean of x  mean of y 
+## 0.08547009 0.08130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-16.png" width="522.8487264" /></p>
+<pre><code>## Egf
+##  -----
+##  Average number of Egf transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.16 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.0437, df = 181.84, p-value = 0.298
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.01559204  0.05061392
+## sample estimates:
+##   mean of x   mean of y 
+## 0.025641026 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-17.png" width="522.8487264" /></p>
+<pre><code>## Efna1
+##  -----
+##  Average number of Efna1 transcripts detected:
+##  CPu : M = 0.05 ( SD = 0.22 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.9584, df = 151.86, p-value = 0.05202
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.0003815429  0.0866854829
+## sample estimates:
+##   mean of x   mean of y 
+## 0.051282051 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-18.png" width="522.8487264" /></p>
+<pre><code>## Efna2
+##  -----
+##  Average number of Efna2 transcripts detected:
+##  CPu : M = 0.02 ( SD = 0.13 ) molecules 
+##  SS : M = 0.05 ( SD = 0.25 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.2348, df = 185.04, p-value = 0.2185
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.08231115  0.01893820
+## sample estimates:
+##  mean of x  mean of y 
+## 0.01709402 0.04878049</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-19.png" width="522.8487264" /></p>
+<pre><code>## Efna3        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Efna3 transcripts detected:
+##  CPu : M = 0.32 ( SD = 0.57 ) molecules 
+##  SS : M = 0.51 ( SD = 0.73 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.226, df = 229.54, p-value = 0.02699
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.35329814 -0.02151946
+## sample estimates:
+## mean of x mean of y 
+## 0.3247863 0.5121951</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-20.png" width="522.8487264" /></p>
+<pre><code>## Efna4
+##  -----
+##  Average number of Efna4 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-21.png" width="522.8487264" /></p>
+<pre><code>## Efna5        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Efna5 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.14 ( SD = 0.35 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -4.4234, df = 122, p-value = 2.125e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.2000657 -0.0763571
+## sample estimates:
+## mean of x mean of y 
+## 0.0000000 0.1382114</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-22.png" width="522.8487264" /></p>
+<pre><code>## Efnb1
+##  -----
+##  Average number of Efnb1 transcripts detected:
+##  CPu : M = 0.1 ( SD = 0.36 ) molecules 
+##  SS : M = 0.06 ( SD = 0.23 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.1679, df = 197.98, p-value = 0.2443
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.03143564  0.12274270
+## sample estimates:
+##  mean of x  mean of y 
+## 0.10256410 0.05691057</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-23.png" width="522.8487264" /></p>
+<pre><code>## Efnb2
+##  -----
+##  Average number of Efnb2 transcripts detected:
+##  CPu : M = 0.49 ( SD = 0.76 ) molecules 
+##  SS : M = 0.43 ( SD = 0.59 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.63881, df = 218.17, p-value = 0.5236
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1173703  0.2299407
+## sample estimates:
+## mean of x mean of y 
+## 0.4871795 0.4308943</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-24.png" width="522.8487264" /></p>
+<pre><code>## Efnb3        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Efnb3 transcripts detected:
+##  CPu : M = 1.12 ( SD = 1.12 ) molecules 
+##  SS : M = 0.68 ( SD = 0.85 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 3.3958, df = 217, p-value = 0.0008138
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.1832461 0.6902165
+## sample estimates:
+## mean of x mean of y 
+## 1.1196581 0.6829268</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-25.png" width="522.8487264" /></p>
+<pre><code>## Fgf1        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Fgf1 transcripts detected:
+##  CPu : M = 0.32 ( SD = 0.57 ) molecules 
+##  SS : M = 0.49 ( SD = 0.71 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.9737, df = 231.96, p-value = 0.0496
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.3257498750 -0.0002872315
+## sample estimates:
+## mean of x mean of y 
+## 0.3247863 0.4878049</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-26.png" width="522.8487264" /></p>
+<pre><code>## Fgf2
+##  -----
+##  Average number of Fgf2 transcripts detected:
+##  CPu : M = 0.04 ( SD = 0.2 ) molecules 
+##  SS : M = 0.06 ( SD = 0.23 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.50352, df = 236.3, p-value = 0.6151
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.06963856  0.04128750
+## sample estimates:
+##  mean of x  mean of y 
+## 0.04273504 0.05691057</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-27.png" width="522.8487264" /></p>
+<pre><code>## Fgf3
+##  -----
+##  Average number of Fgf3 transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.16 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.7472, df = 116, p-value = 0.08325
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.003426005  0.054708057
+## sample estimates:
+##  mean of x  mean of y 
+## 0.02564103 0.00000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-28.png" width="522.8487264" /></p>
+<pre><code>## Fgf5
+##  -----
+##  Average number of Fgf5 transcripts detected:
+##  CPu : M = 0.02 ( SD = 0.13 ) molecules 
+##  SS : M = 0.05 ( SD = 0.22 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.3827, df = 201.83, p-value = 0.1683
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.07687349  0.01350055
+## sample estimates:
+##  mean of x  mean of y 
+## 0.01709402 0.04878049</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-29.png" width="522.8487264" /></p>
+<pre><code>## Fgf7
+##  -----
+##  Average number of Fgf7 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-30.png" width="522.8487264" /></p>
+<pre><code>## Fgf8
+##  -----
+##  Average number of Fgf8 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-31.png" width="522.8487264" /></p>
+<pre><code>## Fgf9
+##  -----
+##  Average number of Fgf9 transcripts detected:
+##  CPu : M = 0.23 ( SD = 0.46 ) molecules 
+##  SS : M = 0.28 ( SD = 0.56 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.68845, df = 233.11, p-value = 0.4919
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.17630326  0.08499619
+## sample estimates:
+## mean of x mean of y 
+## 0.2307692 0.2764228</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-32.png" width="522.8487264" /></p>
+<pre><code>## Fgf10
+##  -----
+##  Average number of Fgf10 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.04 ( SD = 0.24 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.3998, df = 160.15, p-value = 0.1635
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.07739627  0.01318947
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.040650407</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-33.png" width="522.8487264" /></p>
+<pre><code>## Fgf11
+##  -----
+##  Average number of Fgf11 transcripts detected:
+##  CPu : M = 0.19 ( SD = 0.49 ) molecules 
+##  SS : M = 0.12 ( SD = 0.33 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.2207, df = 201.39, p-value = 0.2236
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.04066287  0.17282881
+## sample estimates:
+## mean of x mean of y 
+## 0.1880342 0.1219512</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-34.png" width="522.8487264" /></p>
+<pre><code>## Fgf12        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Fgf12 transcripts detected:
+##  CPu : M = 0.93 ( SD = 0.94 ) molecules 
+##  SS : M = 1.99 ( SD = 1.58 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -6.359, df = 199.82, p-value = 1.354e-09
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.3890276 -0.7314643
+## sample estimates:
+## mean of x mean of y 
+## 0.9316239 1.9918699</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-35.png" width="522.8487264" /></p>
+<pre><code>## Fgf13        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Fgf13 transcripts detected:
+##  CPu : M = 1.26 ( SD = 1.27 ) molecules 
+##  SS : M = 2.02 ( SD = 1.55 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -4.2025, df = 233.17, p-value = 3.762e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -1.1280204 -0.4079396
+## sample estimates:
+## mean of x mean of y 
+##   1.25641   2.02439</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-36.png" width="522.8487264" /></p>
+<pre><code>## Fgf14
+##  -----
+##  Average number of Fgf14 transcripts detected:
+##  CPu : M = 0.3 ( SD = 0.61 ) molecules 
+##  SS : M = 0.37 ( SD = 0.63 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.83594, df = 237.98, p-value = 0.404
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.22391406  0.09049735
+## sample estimates:
+## mean of x mean of y 
+## 0.2991453 0.3658537</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-37.png" width="522.8487264" /></p>
+<pre><code>## Fgf16
+##  -----
+##  Average number of Fgf16 transcripts detected:
+##  CPu : M = 0.02 ( SD = 0.13 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.4203, df = 116, p-value = 0.1582
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.00674298  0.04093101
+## sample estimates:
+##  mean of x  mean of y 
+## 0.01709402 0.00000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-38.png" width="522.8487264" /></p>
+<pre><code>## Fgf17
+##  -----
+##  Average number of Fgf17 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-39.png" width="522.8487264" /></p>
+<pre><code>## Fgf18
+##  -----
+##  Average number of Fgf18 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-40.png" width="522.8487264" /></p>
+<pre><code>## Fgf22
+##  -----
+##  Average number of Fgf22 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-41.png" width="522.8487264" /></p>
+<pre><code>## Gdnf
+##  -----
+##  Average number of Gdnf transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.22 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.6449, df = 116, p-value = 0.1027
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.006979009  0.075355078
+## sample estimates:
+##  mean of x  mean of y 
+## 0.03418803 0.00000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-42.png" width="522.8487264" /></p>
+<pre><code>## Nrtn        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Nrtn transcripts detected:
+##  CPu : M = 0.31 ( SD = 0.69 ) molecules 
+##  SS : M = 0.08 ( SD = 0.27 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 3.3168, df = 150.48, p-value = 0.001142
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.09152566 0.36125732
+## sample estimates:
+##  mean of x  mean of y 
+## 0.30769231 0.08130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-43.png" width="522.8487264" /></p>
+<pre><code>## Artn
+##  -----
+##  Average number of Artn transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-44.png" width="522.8487264" /></p>
+<pre><code>## Gdf9
+##  -----
+##  Average number of Gdf9 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-45.png" width="522.8487264" /></p>
+<pre><code>## Hgf
+##  -----
+##  Average number of Hgf transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.035344, df = 236.66, p-value = 0.9718
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.02282198  0.02365583
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-46.png" width="522.8487264" /></p>
+<pre><code>## Hdgf
+##  -----
+##  Average number of Hdgf transcripts detected:
+##  CPu : M = 1.03 ( SD = 0.97 ) molecules 
+##  SS : M = 1.16 ( SD = 1.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.0303, df = 236.95, p-value = 0.3039
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.3988450  0.1249238
+## sample estimates:
+## mean of x mean of y 
+##  1.025641  1.162602</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-47.png" width="522.8487264" /></p>
+<pre><code>## Igf1
+##  -----
+##  Average number of Igf1 transcripts detected:
+##  CPu : M = 0.02 ( SD = 0.13 ) molecules 
+##  SS : M = 0.02 ( SD = 0.15 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.39576, df = 234.48, p-value = 0.6926
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.04361765  0.02902520
+## sample estimates:
+##  mean of x  mean of y 
+## 0.01709402 0.02439024</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-48.png" width="522.8487264" /></p>
+<pre><code>## Igf2
+##  -----
+##  Average number of Igf2 transcripts detected:
+##  CPu : M = 0.22 ( SD = 0.56 ) molecules 
+##  SS : M = 0.22 ( SD = 0.63 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.035165, df = 236.63, p-value = 0.972
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1491126  0.1545326
+## sample estimates:
+## mean of x mean of y 
+## 0.2222222 0.2195122</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-49.png" width="522.8487264" /></p>
+<pre><code>## Il1a
+##  -----
+##  Average number of Il1a transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-50.png" width="522.8487264" /></p>
+<pre><code>## Il1b
+##  -----
+##  Average number of Il1b transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-51.png" width="522.8487264" /></p>
+<pre><code>## Il2
+##  -----
+##  Average number of Il2 transcripts detected:
+##  CPu : M = 0.17 ( SD = 0.4 ) molecules 
+##  SS : M = 0.24 ( SD = 0.58 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.1422, df = 217.89, p-value = 0.2546
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.19885697  0.05293243
+## sample estimates:
+## mean of x mean of y 
+## 0.1709402 0.2439024</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-52.png" width="522.8487264" /></p>
+<pre><code>## Il4
+##  -----
+##  Average number of Il4 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-53.png" width="522.8487264" /></p>
+<pre><code>## Il5
+##  -----
+##  Average number of Il5 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-54.png" width="522.8487264" /></p>
+<pre><code>## Il6
+##  -----
+##  Average number of Il6 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-55.png" width="522.8487264" /></p>
+<pre><code>## Nrg1
+##  -----
+##  Average number of Nrg1 transcripts detected:
+##  CPu : M = 0.07 ( SD = 0.25 ) molecules 
+##  SS : M = 0.11 ( SD = 0.33 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.97752, df = 226.9, p-value = 0.3294
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.11253401  0.03790404
+## sample estimates:
+##  mean of x  mean of y 
+## 0.06837607 0.10569106</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-56.png" width="522.8487264" /></p>
+<pre><code>## Nrg2
+##  -----
+##  Average number of Nrg2 transcripts detected:
+##  CPu : M = 0.05 ( SD = 0.22 ) molecules 
+##  SS : M = 0.07 ( SD = 0.26 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.70089, df = 234.91, p-value = 0.4841
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.08341464  0.03963728
+## sample estimates:
+##  mean of x  mean of y 
+## 0.05128205 0.07317073</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-57.png" width="522.8487264" /></p>
+<pre><code>## Nrg3
+##  -----
+##  Average number of Nrg3 transcripts detected:
+##  CPu : M = 0.15 ( SD = 0.38 ) molecules 
+##  SS : M = 0.24 ( SD = 0.51 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.5605, df = 223.98, p-value = 0.12
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.20472212  0.02377569
+## sample estimates:
+## mean of x mean of y 
+## 0.1452991 0.2357724</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-58.png" width="522.8487264" /></p>
+<pre><code>## Nrg4
+##  -----
+##  Average number of Nrg4 transcripts detected:
+##  CPu : M = 0.02 ( SD = 0.13 ) molecules 
+##  SS : M = 0.04 ( SD = 0.2 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.093, df = 211.86, p-value = 0.2756
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.06604067  0.01892789
+## sample estimates:
+##  mean of x  mean of y 
+## 0.01709402 0.04065041</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-59.png" width="522.8487264" /></p>
+<pre><code>## Bdnf        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Bdnf transcripts detected:
+##  CPu : M = 0.12 ( SD = 0.35 ) molecules 
+##  SS : M = 0.36 ( SD = 0.63 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -3.6425, df = 193.32, p-value = 0.0003467
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.3669696 -0.1091613
+## sample estimates:
+## mean of x mean of y 
+## 0.1196581 0.3577236</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-60.png" width="522.8487264" /></p>
+<pre><code>## Ngf
+##  -----
+##  Average number of Ngf transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-61.png" width="522.8487264" /></p>
+<pre><code>## Ntf3
+##  -----
+##  Average number of Ntf3 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-62.png" width="522.8487264" /></p>
+<pre><code>## Pgf
+##  -----
+##  Average number of Pgf transcripts detected:
+##  CPu : M = 0.04 ( SD = 0.2 ) molecules 
+##  SS : M = 0.02 ( SD = 0.13 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.2037, df = 192.93, p-value = 0.2302
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.01690641  0.06985617
+## sample estimates:
+##  mean of x  mean of y 
+## 0.04273504 0.01626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-63.png" width="522.8487264" /></p>
+<pre><code>## Pdgfa
+##  -----
+##  Average number of Pdgfa transcripts detected:
+##  CPu : M = 0.57 ( SD = 0.85 ) molecules 
+##  SS : M = 0.62 ( SD = 0.85 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.41007, df = 237.41, p-value = 0.6821
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.2625587  0.1720855
+## sample estimates:
+## mean of x mean of y 
+## 0.5726496 0.6178862</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-64.png" width="522.8487264" /></p>
+<pre><code>## Pdgfb
+##  -----
+##  Average number of Pdgfb transcripts detected:
+##  CPu : M = 0.13 ( SD = 0.36 ) molecules 
+##  SS : M = 0.2 ( SD = 0.44 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.443, df = 232.53, p-value = 0.1504
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.17751393  0.02742012
+## sample estimates:
+## mean of x mean of y 
+## 0.1282051 0.2032520</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-65.png" width="522.8487264" /></p>
+<pre><code>## Rnls
+##  -----
+##  Average number of Rnls transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.16 ) molecules 
+##  SS : M = 0.02 ( SD = 0.2 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.053642, df = 230.32, p-value = 0.9573
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.04469182  0.04719339
+## sample estimates:
+##  mean of x  mean of y 
+## 0.02564103 0.02439024</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-66.png" width="522.8487264" /></p>
+<pre><code>## Tpo
+##  -----
+##  Average number of Tpo transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-67.png" width="522.8487264" /></p>
+<pre><code>## Tgfa        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Tgfa transcripts detected:
+##  CPu : M = 0.45 ( SD = 0.62 ) molecules 
+##  SS : M = 0.13 ( SD = 0.36 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 4.8815, df = 184.19, p-value = 2.274e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.1924007 0.4534196
+## sample estimates:
+## mean of x mean of y 
+## 0.4529915 0.1300813</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-68.png" width="522.8487264" /></p>
+<pre><code>## Tgfb1
+##  -----
+##  Average number of Tgfb1 transcripts detected:
+##  CPu : M = 0.04 ( SD = 0.2 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.691, df = 158.27, p-value = 0.0928
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.005812046  0.075021969
+## sample estimates:
+##   mean of x   mean of y 
+## 0.042735043 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-69.png" width="522.8487264" /></p>
+<pre><code>## Tgfb2
+##  -----
+##  Average number of Tgfb2 transcripts detected:
+##  CPu : M = 0.06 ( SD = 0.27 ) molecules 
+##  SS : M = 0.03 ( SD = 0.18 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.91531, df = 198.52, p-value = 0.3611
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.03152665  0.08614412
+## sample estimates:
+##  mean of x  mean of y 
+## 0.05982906 0.03252033</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-70.png" width="522.8487264" /></p>
+<pre><code>## Tgfb3
+##  -----
+##  Average number of Tgfb3 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.02 ( SD = 0.15 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.7464, df = 122, p-value = 0.08325
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.052036966  0.003256478
+## sample estimates:
+##  mean of x  mean of y 
+## 0.00000000 0.02439024</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-71.png" width="522.8487264" /></p>
+<pre><code>## Vegfa
+##  -----
+##  Average number of Vegfa transcripts detected:
+##  CPu : M = 0.5 ( SD = 0.82 ) molecules 
+##  SS : M = 0.5 ( SD = 0.73 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.002084, df = 231.85, p-value = 0.9983
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.1968806  0.1972975
+## sample estimates:
+## mean of x mean of y 
+## 0.5042735 0.5040650</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-72.png" width="522.8487264" /></p>
+<pre><code>## Vegfb        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Vegfb transcripts detected:
+##  CPu : M = 1.24 ( SD = 1.24 ) molecules 
+##  SS : M = 1.59 ( SD = 1.42 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -2.0644, df = 236.2, p-value = 0.04007
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.69217742 -0.01618197
+## sample estimates:
+## mean of x mean of y 
+##  1.239316  1.593496</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-73.png" width="522.8487264" /></p>
+<pre><code>## Vegfc
+##  -----
+##  Average number of Vegfc transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.02 ( SD = 0.13 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1.42, df = 122, p-value = 0.1581
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.038927477  0.006407152
+## sample estimates:
+##  mean of x  mean of y 
+## 0.00000000 0.01626016</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-74.png" width="522.8487264" /></p>
+<pre><code>## Vegfd
+##  -----
+##  Average number of Vegfd transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.02 ( SD = 0.13 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.53981, df = 223.01, p-value = 0.5899
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.03587111  0.02044481
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.016260163</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-75.png" width="522.8487264" /></p>
+<pre><code>## Wnt2
+##  -----
+##  Average number of Wnt2 transcripts detected:
+##  CPu : M = 0.03 ( SD = 0.18 ) molecules 
+##  SS : M = 0.06 ( SD = 0.23 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.84414, df = 229.78, p-value = 0.3995
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.07576027  0.03031520
+## sample estimates:
+##  mean of x  mean of y 
+## 0.03418803 0.05691057</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-76.png" width="522.8487264" /></p>
+<pre><code>## Wnt4        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Wnt4 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.16 ( SD = 0.39 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -4.2363, df = 136.19, p-value = 4.159e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.22596777 -0.08214146
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.162601626</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-77.png" width="522.8487264" /></p>
+<pre><code>## Wnt5a        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Wnt5a transcripts detected:
+##  CPu : M = 0.09 ( SD = 0.32 ) molecules 
+##  SS : M = 0.02 ( SD = 0.15 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 2.1219, df = 165.31, p-value = 0.03533
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  0.004840102 0.134413598
+## sample estimates:
+##  mean of x  mean of y 
+## 0.09401709 0.02439024</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-78.png" width="522.8487264" /></p>
+<pre><code>## Wnt5b
+##  -----
+##  Average number of Wnt5b transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-79.png" width="522.8487264" /></p>
+<pre><code>## Wnt6
+##  -----
+##  Average number of Wnt6 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.035344, df = 236.66, p-value = 0.9718
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.02282198  0.02365583
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-80.png" width="522.8487264" /></p>
+<pre><code>## Wnt7a
+##  -----
+##  Average number of Wnt7a transcripts detected:
+##  CPu : M = 0.1 ( SD = 0.33 ) molecules 
+##  SS : M = 0.05 ( SD = 0.22 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1.4797, df = 197.98, p-value = 0.1405
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.01789558  0.12546281
+## sample estimates:
+##  mean of x  mean of y 
+## 0.10256410 0.04878049</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-81.png" width="522.8487264" /></p>
+<pre><code>## Wnt7b
+##  -----
+##  Average number of Wnt7b transcripts detected:
+##  CPu : M = 0.15 ( SD = 0.4 ) molecules 
+##  SS : M = 0.19 ( SD = 0.47 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.7435, df = 235.33, p-value = 0.4579
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.15216818  0.06878273
+## sample estimates:
+## mean of x mean of y 
+## 0.1452991 0.1869919</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-82.png" width="522.8487264" /></p>
+<pre><code>## Wnt8b
+##  -----
+##  Average number of Wnt8b transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 0.035344, df = 236.66, p-value = 0.9718
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.02282198  0.02365583
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-83.png" width="522.8487264" /></p>
+<pre><code>## Wnt9a        █▬█ █ ▀█▀ MARKER FOR SOMATOSENSORY!
+##  -----
+##  Average number of Wnt9a transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0.15 ( SD = 0.43 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -3.7143, df = 134.08, p-value = 0.000298
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.22362692 -0.06822215
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.154471545</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-84.png" width="522.8487264" /></p>
+<pre><code>## Wnt10a
+##  -----
+##  Average number of Wnt10a transcripts detected:
+##  CPu : M = 0.04 ( SD = 0.2 ) molecules 
+##  SS : M = 0.07 ( SD = 0.29 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -0.94295, df = 218.6, p-value = 0.3467
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.09405000  0.03317862
+## sample estimates:
+##  mean of x  mean of y 
+## 0.04273504 0.07317073</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-85.png" width="522.8487264" /></p>
+<pre><code>## Wnt10b
+##  -----
+##  Average number of Wnt10b transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0.01 ( SD = 0.09 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = -1, df = 122, p-value = 0.3193
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.024224389  0.007964227
+## sample estimates:
+##   mean of x   mean of y 
+## 0.000000000 0.008130081</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-86.png" width="522.8487264" /></p>
+<pre><code>## Wnt11
+##  -----
+##  Average number of Wnt11 transcripts detected:
+##  CPu : M = 0 ( SD = 0 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = NaN, df = NaN, p-value = NA
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  NaN NaN
+## sample estimates:
+## mean of x mean of y 
+##         0         0</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-87.png" width="522.8487264" /></p>
+<pre><code>## Wnt16
+##  -----
+##  Average number of Wnt16 transcripts detected:
+##  CPu : M = 0.01 ( SD = 0.09 ) molecules 
+##  SS : M = 0 ( SD = 0 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 1, df = 116, p-value = 0.3194
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.008381419  0.025475436
+## sample estimates:
+##   mean of x   mean of y 
+## 0.008547009 0.000000000</code></pre>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-16-88.png" width="522.8487264" /></p>
+<pre><code>## Penk        █▬█ █ ▀█▀ MARKER FOR CAUDATE PUTAMEN!
+##  -----
+##  Average number of Penk transcripts detected:
+##  CPu : M = 14 ( SD = 6.51 ) molecules 
+##  SS : M = 2.52 ( SD = 1.83 ) molecules
+##  -----
+## 
+##  Welch Two Sample t-test
+## 
+## data:  CP and SS
+## t = 18.409, df = 133.32, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  10.24625 12.71310
+## sample estimates:
+## mean of x mean of y 
+## 14.000000  2.520325 
+## 
+## 
+##  Nondetected genes: 
+## Gdf2, Bmp10, Gdf7, Bmp5, Bmp8b, Cntf, Csf3, Csf2, Epo, Fgf4, Fgf6, Fgf19, Fgf20, Fgf21, Fgf23, Pspn, Ins, Il3, Il7, Ntf4, Tnf, Wnt1, Wnt2b, Wnt13, Wnt3a, Wnt8a, Wnt9b</code></pre>
+<div id="exploratory-conclusion" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> Exploratory conclusion:</h3>
+<ul>
+<li>Somatosensory:</li>
+<li><code>{r} cat(paste(expl.analysis$somatosensory , collapse=' ,'))</code></li>
+<li>Striatal:</li>
+<li><code>{r} cat(paste(expl.analysis$striatum , collapse=' ,'))</code></li>
+<li>Non detected:</li>
+<li><code>{r} cat(paste(expl.analysis$non.detected , collapse=' ,'))</code></li>
+</ul>
+</div>
+<div id="somatosensory-1" class="section level3">
+<h3><span class="header-section-number">10.4.2</span> Somatosensory:</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="kw">length</span>(expl.analysis$somatosensory)%/%<span class="dv">4+1</span>,<span class="dv">4</span>%/%<span class="dv">4+1</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>))
+<span class="kw">invisible</span>(<span class="kw">sapply</span>(expl.analysis$somatosensory, function(x)<span class="kw">plot.gene</span>(dataset, regi, <span class="dt">gene=</span>x, <span class="dt">colorfunc=</span>viridis)))</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-17-1.png" width="672" /><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
+</div>
+<div id="striatal-1" class="section level3">
+<h3><span class="header-section-number">10.4.3</span> Striatal:</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="kw">length</span>(expl.analysis$striatum)%/%<span class="dv">4+1</span>,<span class="dv">4</span>), <span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>))
+<span class="kw">invisible</span>(<span class="kw">sapply</span>(expl.analysis$striatum, function(x)<span class="kw">plot.gene</span>(dataset, regi, <span class="dt">gene=</span>x, <span class="dt">colorfunc=</span>viridis)))</code></pre></div>
+<p><img src="wholebrain-bookdown_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="smfish.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mapseq.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/tractatus/wholebrain-bookdown/edit/master/10-spatialtranscriptomics.Rmd",
+"text": "Edit"
+},
+"download": ["wholebrain-bookdown.pdf", "wholebrain-bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
